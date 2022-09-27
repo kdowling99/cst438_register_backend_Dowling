@@ -1,6 +1,7 @@
 package com.cst438.controller;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -22,6 +24,7 @@ import com.cst438.domain.Enrollment;
 import com.cst438.domain.EnrollmentRepository;
 import com.cst438.domain.ScheduleDTO;
 import com.cst438.domain.Student;
+import com.cst438.domain.StudentDTO;
 import com.cst438.domain.StudentRepository;
 import com.cst438.service.GradebookService;
 
@@ -153,6 +156,40 @@ public class ScheduleController {
 		courseDTO.title = c.getTitle();
 		courseDTO.grade = e.getCourseGrade();
 		return courseDTO;
+	}
+	
+	
+	
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	
+	@PostMapping("/createStudent")
+	public Student createStudent(@RequestBody StudentDTO studentDTO) {
+//		Student s = new Student();
+//		s.setName(student.name);
+//		// TODO check if email in system
+//		s.setEmail(student.email);
+//		//studentRepository = new StudentRepository();
+//		//studentRepository.save(s);
+//		return s;
+		
+		Student s = studentRepository.findByEmail(studentDTO.email);
+		if (s != null) {
+			System.err.println("Error: email already in use");
+			return s;
+		}
+		s = new Student();
+		s.setName(studentDTO.name);
+		s.setEmail(studentDTO.email);
+		studentRepository.save(s);
+		return s;
+	}
+	
+	@PutMapping("/student/{id}")
+	public void updateStatus(@PathVariable("id") int sid, @RequestParam("status") int status) {
+		Student s = studentRepository.findById(sid).get();
+		s.setStatusCode(status);
+		studentRepository.save(s);
+		return;
 	}
 	
 }
