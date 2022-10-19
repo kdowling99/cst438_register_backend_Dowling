@@ -29,7 +29,8 @@ import com.cst438.domain.StudentRepository;
 import com.cst438.service.GradebookService;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:3000", "https://registerf-cst438.herokuapp.com/"})
+@CrossOrigin(origins = {"http://localhost:3000", "https://registerb-cst438.herokuapp.com//student/"})
+//@CrossOrigin(origins = {"http://localhost:3000"})
 public class ScheduleController {
 	
 	
@@ -162,7 +163,7 @@ public class ScheduleController {
 	
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	@PostMapping("/createStudent")
+	@PostMapping("/student")
 	public Student createStudent(@RequestBody StudentDTO studentDTO) {
 //		Student s = new Student();
 //		s.setName(student.name);
