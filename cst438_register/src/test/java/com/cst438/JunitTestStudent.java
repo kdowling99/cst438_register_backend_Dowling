@@ -125,7 +125,7 @@ public class JunitTestStudent {
 		// then do an http post request with body of courseDTO as JSON
 		response = mvc.perform(
 				MockMvcRequestBuilders
-			      .post("/createStudent")
+			      .post("/student")
 			      .content(asJsonString(studentDTO))
 			      .contentType(MediaType.APPLICATION_JSON)
 			      .accept(MediaType.APPLICATION_JSON))
